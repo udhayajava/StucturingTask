@@ -1,0 +1,56 @@
+@startuml
+'https://plantuml.com/class-diagram
+title __PAGES's Class Diagram__\n
+
+  namespace com.pages {
+    class com.pages.Login {
+        + clickLogin()
+        + enterUserName()
+        + enterUserPassword()
+        + forgetPassword()
+    }
+  }
+
+
+  namespace com.pages {
+    class com.pages.Verify {
+        ~ actualPageTitle : String
+        + getLoginButton()
+        + getPasswordBox()
+        + getUserNameBox()
+        + verifyTitlePage()
+    }
+  }
+
+
+  namespace com.pages {
+    class com.pages.dashboardPage {
+        ~ dashboardUrl : String
+        + dashboardPage()
+    }
+  }
+
+
+  namespace com.pages {
+    class com.pages.forgetPassWordPage {
+        + forgetPassWordPage()
+    }
+  }
+
+
+  com.pages.Login -up-|> com.seleniumBase.Browser
+  com.pages.Verify -up-|> com.seleniumBase.Browser
+  com.pages.dashboardPage -up-|> com.pages.Login
+  com.pages.forgetPassWordPage -up-|> com.pages.Login
+title __SELENIUMBASE's Class Diagram__\n
+
+  namespace com.seleniumBase {
+    class com.seleniumBase.Browser {
+        {static} + driver : RemoteWebDriver
+        ~ URL : String
+        + closeBrowser()
+        + openBrowser()
+    }
+  }
+
+@enduml
