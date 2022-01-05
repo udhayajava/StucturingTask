@@ -2,22 +2,29 @@ package com.seleniumBase;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.Duration;
+import java.util.Properties;
 
-public class Browser {
+public class MyBrowser {
     public static  RemoteWebDriver driver;
-    String URL = "https://opensource-demo.orangehrmlive.com/";
+    public static Properties properties;
     @BeforeMethod
-    public void openBrowser() {
+    public void openBrowser() throws IOException {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-        driver.navigate().to(URL);
+        FileInputStream stream = new FileInputStream("config.properties");
+        properties = new Properties();
+        properties.load(stream);
+        driver.navigate().to(properties.getProperty("PageURL"));
     }
     @AfterMethod
     public void closeBrowser() {

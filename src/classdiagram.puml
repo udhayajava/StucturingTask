@@ -1,6 +1,13 @@
 @startuml
 'https://plantuml.com/class-diagram
 title __PAGES's Class Diagram__\n
+ namespace com.pages {
+    class com.pages.DashboardPage {
+        + DashboardPage()
+        + isCorrectPage()
+    }
+  }
+
 
   namespace com.pages {
     class com.pages.Login {
@@ -14,7 +21,6 @@ title __PAGES's Class Diagram__\n
 
   namespace com.pages {
     class com.pages.Verify {
-        ~ actualPageTitle : String
         + getLoginButton()
         + getPasswordBox()
         + getUserNameBox()
@@ -24,9 +30,9 @@ title __PAGES's Class Diagram__\n
 
 
   namespace com.pages {
-    class com.pages.dashboardPage {
-        ~ dashboardUrl : String
-        + dashboardPage()
+    class com.pages.VerifyDashBoard {
+        + getLinkCount()
+        + isChecked()
     }
   }
 
@@ -38,19 +44,24 @@ title __PAGES's Class Diagram__\n
   }
 
 
-  com.pages.Login -up-|> com.seleniumBase.Browser
-  com.pages.Verify -up-|> com.seleniumBase.Browser
-  com.pages.dashboardPage -up-|> com.pages.Login
+  com.pages.DashboardPage -up-|> com.pages.Login
+  com.pages.Login -up-|> com.seleniumBase.MyBrowser
+  com.pages.Verify -up-|> com.seleniumBase.MyBrowser
+  com.pages.VerifyDashBoard -up-|> com.pages.Login
   com.pages.forgetPassWordPage -up-|> com.pages.Login
-title __SELENIUMBASE's Class Diagram__\n
+
+
+
 
   namespace com.seleniumBase {
-    class com.seleniumBase.Browser {
+    class com.seleniumBase.MyBrowser {
         {static} + driver : RemoteWebDriver
-        ~ URL : String
+        {static} + properties : Properties
         + closeBrowser()
         + openBrowser()
     }
   }
+
+
 
 @enduml
